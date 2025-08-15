@@ -1,0 +1,68 @@
+Upgrade my existing healthcare chatbot (already using Gemini API, Singapore guidelines, weather & health trend awareness) with the following combined enhancements:
+1. Persistent Medical Record System
+Store all patient data in a secure database (SQLite for local dev, MongoDB for production).
+Data to store:
+User profile (name, age, gender, chronic conditions, travel frequency, lifestyle habits)
+Complete medical history (from uploaded files, past chats, extracted lab results)
+Uploaded file metadata & extracted data
+Health plans & risk predictions
+Past conversations with timestamps & specialist responding
+On new session, auto-load patient history and use it to personalize responses.
+Include a summary table of patient history for faster AI context loading.
+Add an admin dashboard to search and view stored records.
+2. Conversation Memory & Context Rules
+Session Memory: During a session, remember all previous user and bot messages. Every response must consider the entire conversation history.
+Persistent Memory Across Sessions: Store all past chats in the database. On new session, load the last N chats (or last 2 weeks) into context automatically.
+Avoid Repetitive Responses: If a question was answered earlier, summarize and reference past answers instead of repeating word-for-word.
+Adaptive Suggestions: Always adjust advice based on updated history and recent conversations.
+No Fresh Restarts: Only start new conversation if user says “Start new conversation” or “Forget history.”
+3. Ruby (Concierge) Specialist Rule
+Ruby only handles logistics, scheduling, and coordination.
+She never gives medical, nutrition, physiotherapy, or fitness advice.
+If advice is needed, she:
+Acknowledges the query.
+Refers to the correct specialist.
+Passes the query to them within the same conversation.
+Example:
+User: “I have chest pain.”
+Ruby: “I understand your concern. Let me bring in Dr. Warren to assist you.”
+Dr. Warren: Provides diagnosis-oriented advice with citations.
+4. AI-Generated Personalized Health Plans
+Auto-generate plans every 2 weeks based on history, symptoms, Singapore health trends, lifestyle, travel patterns.
+Output as a structured report with: action steps, responsible specialist, timeline, progress tracker, and risk alerts in red.
+Cite MOH, WHO, UpToDate, ACE Clinical Guidelines.
+5. Multimodal Medical Analysis
+Support uploads of:
+PDFs → Extract lab/test values, highlight abnormal results, summarize.
+Medical images (X-ray, MRI, CT) → Analyze via AI vision (OpenCV, TensorFlow), tag findings.
+Link findings to relevant MOH guidelines.
+Store extracted values in history.
+6. Travel Health Advisor Mode
+Trigger when user mentions travel.
+Pull advisories from MOH & WHO.
+Suggest vaccines, preventive steps, local risks.
+Adjust health plan for travel days.
+7. Voice + Chat Interface
+Add voice mode with Speech-to-Text (Web Speech API / Google Cloud Speech) and Text-to-Speech.
+Maintain specialist rules in voice mode.
+8. Patient Risk Prediction
+Analyze history & test results to predict risks for heart disease, diabetes, etc.
+Show risk %, contributing factors, prevention steps.
+Save predictions in history.
+9. Emergency Escalation Protocol
+Detect urgent symptoms (chest pain, shortness of breath, weakness).
+Flag in chat.
+Give emergency instructions.
+Advise calling 995 (Singapore emergency).
+Notify specialist & log in history.
+10. Local Health & Weather Awareness
+Stay updated on ongoing common health issues in Singapore (viral fevers, flu, dengue clusters).
+Use trusted sources: The Straits Times, Channel News Asia (CNA), Today Online, MOH Newsroom.
+Be aware of season & weather via NEA Weather API and adapt advice accordingly.
+11. UI & General Requirements
+User messages right-aligned, bot messages left-aligned.
+Specialist name & role at start of each AI message.
+File upload button should be small and placed directly beside the send button in the chat bar, so it’s compact and user-friendly.
+Auto-scroll & mobile-friendly design.
+Backend in Node.js or Python Flask/FastAPI with database integration.
+AI responses must always cite credible sources.

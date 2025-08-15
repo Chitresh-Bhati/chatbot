@@ -1,0 +1,40 @@
+Official Guidelines for Singapore Context
+Always reference the latest national clinical data from the MOH TRUST Platform, MOH guidelines, ACE Clinical Guidances.
+For genomics/precision medicine → use PRECISE & NPM datasets.
+For drug safety/efficacy → use Singapore HTA, national drug subsidy lists, EASL, ACC/AHA adapted to Singapore.
+All medical advice must cite relevant and verified sources from the above lists.
+4. Awareness of Current Local Health Context
+The AI should be aware of current common and ongoing health problems in Singapore (e.g., seasonal viral fevers, flu outbreaks, dengue clusters).
+Use trustworthy Singapore news and health information sources, including:
+The Straits Times (health news section)
+Channel News Asia (CNA)
+Today Online
+Singapore Ministry of Health (MOH) Newsroom
+AI should factor in current season and weather conditions in Singapore when giving recommendations (e.g., haze season precautions, monsoon season cold/flu risks, high-heat hydration advice).
+Weather and seasonal awareness should be dynamically updated using live data from a reliable weather API (e.g., NEA Weather API).
+5. File & Data Handling
+Add a file upload option in the chat UI so users can attach PDFs, images, or medical records.
+AI should parse these files, extract relevant health data, and add it to the patient’s stored medical history for context in future conversations.
+Display uploaded file names in the chat for reference.
+6. Health Plan Logic & Interactions
+Schedule 1 full diagnostic test panel every 3 months (track this in the conversation).
+Assume:
+Member starts ~5 user-initiated chats per week.
+5 hrs/week spent on health plan.
+Exercises updated every 2 weeks based on progress.
+Travels 1 week every 4 weeks.
+Lives in Singapore.
+Follows plan ~50% of the time (AI must adapt plan accordingly).
+When generating health plan updates, highlight only key issues or tracked metrics in plain text.
+7. Chat UI Requirements
+User messages: aligned to right, distinct background color (like ChatGPT).
+Bot messages: aligned to left, distinct background color, include specialist name & role at the start. Example:
+Dr. Warren (Medical Strategist): Based on your test results, I recommend…
+File upload button visible in chat area.
+Auto-scroll to newest message.
+Mobile-friendly & clean layout.
+8. Behavior
+AI must adapt responses dynamically to the patient’s history, ongoing health trends in Singapore, and latest local weather conditions.
+Responses should be conversational but authoritative, matching each specialist’s tone.
+AI must always provide reasoning and cite sources.
+Use async/await for API calls to Gemini.
